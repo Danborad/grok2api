@@ -317,6 +317,12 @@ func EstimateOfficialVideoCost(model, resolution string, seconds int) (PricingRe
 		ticksPerSecond = 800_000_000
 	case "720p":
 		ticksPerSecond = 1_400_000_000
+	case "1080p":
+		// Only grok-imagine-video-1.5 supports native 1080p pricing.
+		if baseModel == "grok-imagine-video" {
+			return PricingResult{}, false
+		}
+		ticksPerSecond = 2_500_000_000
 	default:
 		return PricingResult{}, false
 	}
@@ -356,6 +362,8 @@ func ReconstructOfficialCost(model string, inputTokens, cachedInputTokens, outpu
 		return reconstructVideoCost("grok-imagine-video-1.5", "480p", outputSeconds)
 	case "grok-imagine-video-1.5-720p":
 		return reconstructVideoCost("grok-imagine-video-1.5", "720p", outputSeconds)
+	case "grok-imagine-video-1.5-1080p":
+		return reconstructVideoCost("grok-imagine-video-1.5", "1080p", outputSeconds)
 	default:
 		return reconstructTextCost(normalized, inputTokens, cachedInputTokens, outputTokens, contextInputTokens)
 	}

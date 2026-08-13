@@ -735,7 +735,7 @@ func discoveredRouteDefaults(provider account.Provider, upstreamModel string) (s
 			return "grok-imagine-image-quality-2.0", model.CapabilityImage
 		case "imagine-image-edit":
 			return "grok-imagine-image-edit", model.CapabilityImageEdit
-		case "grok-imagine-video":
+		case "grok-imagine-video", "grok-imagine-video-1.5":
 			return upstreamModel, model.CapabilityVideo
 		default:
 			return upstreamModel, model.CapabilityChat

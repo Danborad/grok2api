@@ -1058,7 +1058,7 @@ func TestOnlyChatModelsExposeRateLimitModes(t *testing.T) {
 			}
 			continue
 		}
-		if spec.ProtocolModel == "imagine-lite" {
+		if spec.ProtocolModel == "imagine-lite" && spec.Capability == modeldomain.CapabilityImage {
 			if spec.Mode != "fast" {
 				t.Fatalf("Lite image must use fast quota mode, got %q", spec.Mode)
 			}

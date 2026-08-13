@@ -410,8 +410,12 @@ func (a *Adapter) GenerateVideo(ctx context.Context, request provider.VideoReque
 	if request.Duration < 1 || request.Duration > 15 {
 		return provider.VideoResult{}, errors.New("duration 必须在 1 到 15 秒之间")
 	}
-	if request.Resolution != "" && request.Resolution != "480p" && request.Resolution != "720p" {
-		return provider.VideoResult{}, fmt.Errorf("%s 仅支持 480p 或 720p", modelName)
+	resolution := strings.TrimSpace(request.Resolution)
+	switch {
+	case resolution == "" || resolution == "480p" || resolution == "720p":
+	case resolution == "1080p" && modelName == "grok-imagine-video-1.5":
+	default:
+		return provider.VideoResult{}, fmt.Errorf("%s 仅支持 480p、720p 或 1.5 的 1080p", modelName)
 	}
 	payload := map[string]any{
 		"model": modelName, "duration": request.Duration,
