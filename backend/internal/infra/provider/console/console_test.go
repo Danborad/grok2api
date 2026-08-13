@@ -41,18 +41,18 @@ func TestCatalogContainsAllConsoleModelsAndAliases(t *testing.T) {
 		capability modeldomain.Capability
 	}
 	expected := map[routeKey]string{
-		{publicID: "Console/grok-4.3", capability: modeldomain.CapabilityResponses}:                     "grok-4.3",
-		{publicID: "Console/grok-4.20-0309-reasoning", capability: modeldomain.CapabilityResponses}:     "grok-4.20-0309-reasoning",
-		{publicID: "Console/grok-4.20-0309-non-reasoning", capability: modeldomain.CapabilityResponses}: "grok-4.20-0309-non-reasoning",
-		{publicID: "Console/grok-4.20-multi-agent-0309", capability: modeldomain.CapabilityResponses}:   "grok-4.20-multi-agent-0309",
-		{publicID: "Console/grok-4.5", capability: modeldomain.CapabilityResponses}:                     "grok-4.5",
-		{publicID: "Console/grok-build-0.1", capability: modeldomain.CapabilityResponses}:               "grok-build-0.1",
-		{publicID: "Console/grok-imagine-image-quality", capability: modeldomain.CapabilityImage}:       "grok-imagine-image-quality",
-		{publicID: "Console/grok-imagine-image-quality", capability: modeldomain.CapabilityImageEdit}:   "grok-imagine-image-quality",
-		{publicID: "Console/grok-imagine-image", capability: modeldomain.CapabilityImage}:               "grok-imagine-image",
-		{publicID: "Console/grok-imagine-image", capability: modeldomain.CapabilityImageEdit}:           "grok-imagine-image",
-		{publicID: "Console/grok-imagine-video", capability: modeldomain.CapabilityVideo}:               "grok-imagine-video",
-		{publicID: "Console/grok-imagine-video-1.5", capability: modeldomain.CapabilityVideo}:           "grok-imagine-video-1.5",
+		{publicID: "Console/grok-4.3", capability: modeldomain.CapabilityResponses}:                       "grok-4.3",
+		{publicID: "Console/grok-4.20-0309-reasoning", capability: modeldomain.CapabilityResponses}:       "grok-4.20-0309-reasoning",
+		{publicID: "Console/grok-4.20-0309-non-reasoning", capability: modeldomain.CapabilityResponses}:   "grok-4.20-0309-non-reasoning",
+		{publicID: "Console/grok-4.20-multi-agent-0309", capability: modeldomain.CapabilityResponses}:     "grok-4.20-multi-agent-0309",
+		{publicID: "Console/grok-4.5", capability: modeldomain.CapabilityResponses}:                       "grok-4.5",
+		{publicID: "Console/grok-build-0.1", capability: modeldomain.CapabilityResponses}:                 "grok-build-0.1",
+		{publicID: "Console/grok-imagine-image-quality-2.0", capability: modeldomain.CapabilityImage}:     "grok-imagine-image-quality",
+		{publicID: "Console/grok-imagine-image-quality-2.0", capability: modeldomain.CapabilityImageEdit}: "grok-imagine-image-quality",
+		{publicID: "Console/grok-imagine-image-2.0", capability: modeldomain.CapabilityImage}:             "grok-imagine-image",
+		{publicID: "Console/grok-imagine-image-2.0", capability: modeldomain.CapabilityImageEdit}:         "grok-imagine-image",
+		{publicID: "Console/grok-imagine-video", capability: modeldomain.CapabilityVideo}:                 "grok-imagine-video",
+		{publicID: "Console/grok-imagine-video-1.5", capability: modeldomain.CapabilityVideo}:             "grok-imagine-video-1.5",
 	}
 	routes := Routes()
 	if len(routes) != len(expected) {
@@ -67,8 +67,8 @@ func TestCatalogContainsAllConsoleModelsAndAliases(t *testing.T) {
 		}
 	}
 	aliases := Aliases()
-	if len(aliases) != 13 {
-		t.Fatalf("aliases = %d, want 13", len(aliases))
+	if len(aliases) != 15 {
+		t.Fatalf("aliases = %d, want 15", len(aliases))
 	}
 	registry := provider.NewRegistry(NewAdapter(Config{}, nil, nil, nil))
 	if registry.SupportsStoredResponses(account.ProviderConsole) {
@@ -1401,7 +1401,7 @@ func TestConsoleVideoPostsFirstFrameAndReferences(t *testing.T) {
 	adapter, credential := newConsoleTestAdapter(t, server.URL)
 	result, err := adapter.GenerateVideo(context.Background(), provider.VideoRequest{
 		Credential: credential, Prompt: "animate", Duration: 6, AspectRatio: "16:9", Resolution: "720p",
-		ImageURL: "https://example.com/first.png",
+		ImageURL:      "https://example.com/first.png",
 		ReferenceURLs: []string{"https://example.com/ref.png"},
 	})
 	if err != nil {
